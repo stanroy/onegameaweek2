@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dqog2y2r3vnob"]
+
+[ext_resource type="Script" uid="uid://dudl1wcoxw1tu" path="res://ents/dig_spot/dig_spot_generator.gd" id="1_noyuq"]
+
+[node name="DigSpotGenerator" type="Node" unique_id=1734826924]
+script = ExtResource("1_noyuq")

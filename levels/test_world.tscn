@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://bpcypqbpxxjt3"]
+
+[ext_resource type="PackedScene" uid="uid://dqog2y2r3vnob" path="res://ents/dig_spot/dig_spot_generator.tscn" id="1_c576j"]
+[ext_resource type="PackedScene" uid="uid://dc8pkscfnhqtv" path="res://ents/player/player.tscn" id="1_piha8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_piha8"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_kbvng"]
+sky_material = SubResource("ProceduralSkyMaterial_piha8")
+
+[sub_resource type="Environment" id="Environment_c576j"]
+background_mode = 2
+sky = SubResource("Sky_kbvng")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awotp"]
+albedo_color = Color(0.40682718, 0.18903857, 0.07698, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kbvng"]
+size = Vector3(24, 2, 35)
+subdivide_width = 6
+subdivide_height = 6
+subdivide_depth = 6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kbvng"]
+size = Vector3(24, 2, 35)
+
+[node name="TestWorld" type="Node3D" unique_id=633008521]
+
+[node name="DigSpotGenerator" parent="." unique_id=1734826924 instance=ExtResource("1_c576j")]
+collision_mask = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2141238861]
+environment = SubResource("Environment_c576j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1226987905]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1017323407]
+visible = false
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+size = Vector3(87.255615, 1, 96.90039)
+material = SubResource("StandardMaterial3D_awotp")
+
+[node name="Player" parent="." unique_id=304204517 instance=ExtResource("1_piha8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+max_sprint_speed = 10.0
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=236751564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.989351, 1, 18.372128)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=553806830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.510624, 1, 23.57213)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=469030145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.233437, 1, -6.496645)
+size = Vector3(2.6191406, 1, 9.074219)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=498457420]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.21946, 0.9999962, 22.96174)
+size = Vector3(2.6191406, 1, 2.6807861)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=1737962713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.09373, 5.67828, -7.7365932)
+size = Vector3(2.6191406, 10.356567, 2.6807861)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=127094187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7180805, 1.3806419, -27.651726)
+size = Vector3(2.6191406, 1.7612915, 2.6807861)
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=238635853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.734138, 0, 30.138586)
+
+[node name="GroundContainer" type="StaticBody3D" parent="." unique_id=181944010]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Ground" type="MeshInstance3D" parent="GroundContainer" unique_id=1366058527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 17.5)
+mesh = SubResource("BoxMesh_kbvng")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundContainer" unique_id=1705395157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 17.5)
+shape = SubResource("BoxShape3D_kbvng")
