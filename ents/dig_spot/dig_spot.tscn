@@ -11,3 +11,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2064503701]
 shape = SubResource("CylinderShape3D_5tteh")
 debug_color = Color(0.5362397, 0.11868224, 0.17265475, 0.41960785)
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1362788482]
+target_position = Vector3(0, 100, 0)

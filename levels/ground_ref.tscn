@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cm02w5qr4ch27"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awotp"]
+albedo_color = Color(0.40682718, 0.18903857, 0.07698, 1)
+
+[node name="Ground" type="CSGBox3D" unique_id=1941195299]
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+size = Vector3(520.8279, 1, 481.50098)
+material = SubResource("StandardMaterial3D_awotp")

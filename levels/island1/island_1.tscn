@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://1guiwktpmy5m"]
+
+[ext_resource type="PackedScene" uid="uid://ccsfd6p5ai1oh" path="res://levels/island1/island1-ground.glb" id="1_7rwjp"]
+[ext_resource type="PackedScene" uid="uid://dc8pkscfnhqtv" path="res://ents/player/player.tscn" id="2_aqy31"]
+[ext_resource type="Texture2D" uid="uid://b8g0vvl0mlplh" path="res://levels/island1/island1_Default_DefaultBaseColor-2048x2048.png" id="3_lqhpv"]
+[ext_resource type="PackedScene" uid="uid://dqog2y2r3vnob" path="res://ents/dig_spot/dig_spot_generator.tscn" id="3_x4npi"]
+[ext_resource type="Texture2D" uid="uid://bjmwd1ta7qnhh" path="res://levels/island1/island1_Default_DefaultNormal-2048x2048.png" id="4_yund8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aqy31"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_x4npi"]
+sky_material = SubResource("ProceduralSkyMaterial_aqy31")
+
+[sub_resource type="Environment" id="Environment_rxmjq"]
+background_mode = 2
+sky = SubResource("Sky_x4npi")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_agksj"]
+albedo_texture = ExtResource("3_lqhpv")
+normal_enabled = true
+normal_texture = ExtResource("4_yund8")
+
+[node name="Island1" type="Node3D" unique_id=417085001]
+
+[node name="DigSpotGenerator" parent="." unique_id=1734826924 instance=ExtResource("3_x4npi")]
+collision_mask = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1896243402]
+environment = SubResource("Environment_rxmjq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=242325082]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="GroundContainer" parent="." unique_id=27585755 instance=ExtResource("1_7rwjp")]
+
+[node name="Ground" parent="GroundContainer" index="0" unique_id=1964558282]
+surface_material_override/0 = SubResource("StandardMaterial3D_agksj")
+
+[node name="StaticBody3D" parent="GroundContainer/Ground" index="0" unique_id=1378452628]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Player" parent="." unique_id=304204517 instance=ExtResource("2_aqy31")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.528503, 0)
+floor_snap_length = 0.35
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=1753362605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.997734, 17.47345, -236.53122)
+
+[editable path="GroundContainer"]

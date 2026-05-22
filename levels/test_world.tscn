@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dqog2y2r3vnob" path="res://ents/dig_spot/dig_spot_generator.tscn" id="1_c576j"]
 [ext_resource type="PackedScene" uid="uid://dc8pkscfnhqtv" path="res://ents/player/player.tscn" id="1_piha8"]
+[ext_resource type="PackedScene" uid="uid://cm02w5qr4ch27" path="res://levels/ground_ref.tscn" id="2_c576j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_piha8"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -15,9 +16,6 @@ background_mode = 2
 sky = SubResource("Sky_kbvng")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awotp"]
-albedo_color = Color(0.40682718, 0.18903857, 0.07698, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_kbvng"]
 size = Vector3(24, 2, 35)
@@ -40,13 +38,7 @@ environment = SubResource("Environment_c576j")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1017323407]
-visible = false
-use_collision = true
-collision_layer = 2
-collision_mask = 0
-size = Vector3(87.255615, 1, 96.90039)
-material = SubResource("StandardMaterial3D_awotp")
+[node name="CSGBox3D" parent="." unique_id=1941195299 instance=ExtResource("2_c576j")]
 
 [node name="Player" parent="." unique_id=304204517 instance=ExtResource("1_piha8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)

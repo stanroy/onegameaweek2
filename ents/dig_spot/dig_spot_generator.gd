@@ -4,7 +4,7 @@ extends Node
 var level_ground_mesh: MeshInstance3D
 var max_bounds: Vector3
 var origin: Vector3
-var margin: float = 5.0
+var margin: float = 65.
 var dig_spot_scene = preload("res://ents/dig_spot/dig_spot.tscn")
 var dig_spot_instance: Node3D
 
@@ -40,32 +40,39 @@ func _ready() -> void:
 	
 	# set dig spot in the sky and randomize pos
 	dig_spot_instance.position = _randomize_dig_spot_pos(origin, max_bounds, margin)
-	
+
 	
 	get_parent().add_child.call_deferred(dig_spot_instance)
-	var new_pos = _fire_raycast()
-	if new_pos != Vector3.ZERO:
-		dig_spot_instance.position = new_pos
+	var new_pos: Array[Vector3] = _fire_raycast()
+	if new_pos[0] != Vector3.ZERO:
+		dig_spot_instance.position = new_pos[0]
+		var normal = new_pos[1]
+		var forward = -dig_spot_instance.transform.basis.z
+		var new_basis = Basis()
+		new_basis.y = normal
+		new_basis.x = forward.cross(normal).normalized()
+		new_basis.z = normal.cross(new_basis.x).normalized()
+		dig_spot_instance.transform.basis = new_basis
 	
-
-
-func _fire_raycast() -> Vector3:
+	
+func _fire_raycast() -> Array[Vector3]:
 	var space_state = get_parent().get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(dig_spot_instance.position, dig_spot_instance.position + (Vector3.DOWN * 150.0))
+	var query = PhysicsRayQueryParameters3D.create(dig_spot_instance.position, dig_spot_instance.position + (Vector3.DOWN * 300.0))
 	query.collision_mask = collision_mask
 	query.collide_with_bodies = true
 	
 	var result = space_state.intersect_ray(query)
+	var normal = result.normal
 	if result:
-		return result.position
 		print("Hit:", result.collider, "at", result.position)
+		return [result.position, normal]
 	else:
 		print("No hit :(")
-		return Vector3.ZERO
+		return [Vector3.ZERO,Vector3.ZERO]
 
 func _randomize_dig_spot_pos(origin: Vector3, max_bounds: Vector3, margin: float) -> Vector3:
-	var x = randf_range(origin.x + margin, max_bounds.x - margin)
-	var z = randf_range(origin.z + margin, max_bounds.z - margin)
+	var x = randf_range(-max_bounds.x/2 + margin, max_bounds.x/2 - margin)
+	var z = randf_range(-max_bounds.z/2 + margin, max_bounds.z/2 - margin)
 
 	
 	return Vector3(x,50.0,z)
